@@ -109,7 +109,7 @@ class BambooTest extends \PHPUnit_Framework_TestCase
         $middlewares = [
             function (ServerRequestInterface $request) {
                 try {
-                    $response = yield $request;
+                    $response = (yield $request);
                 } catch (Exception $e) {
                     return new Response('Catched: '.$e->getMessage(), $e->getCode());
                 }
@@ -130,13 +130,13 @@ class BambooTest extends \PHPUnit_Framework_TestCase
         $middlewares = [
             function (ServerRequestInterface $request) {
                 try {
-                    $response = yield $request;
+                    $response = (yield $request);
                 } catch (Exception $e) {
                     return new Response('Catched: '.$e->getMessage(), $e->getCode());
                 }
             },
             function (ServerRequestInterface $request) {
-                $response = yield $request;
+                $response = (yield $request);
                 throw new Exception('Oops, something went wrong!', 500);
             },
         ];
@@ -156,7 +156,9 @@ class BambooTest extends \PHPUnit_Framework_TestCase
         };
         $middlewares = [
             function (ServerRequestInterface $request) {
-                return yield $request;
+                $response = (yield $request);
+
+                return $response;
             },
         ];
 
@@ -172,10 +174,12 @@ class BambooTest extends \PHPUnit_Framework_TestCase
         $finalHandler = new FinalHandler('Final!');
         $middlewares = [
             function (ServerRequestInterface $request) {
-                return yield $request;
+                $response = (yield $request);
+
+                return $response;
             },
             function (ServerRequestInterface $request) {
-                $response = yield $request;
+                $response = (yield $request);
                 throw new Exception('Oops, something went wrong!', 500);
             },
         ];

@@ -20,7 +20,8 @@
         "php": ">=7",
         "psr/http-message": "^1.0",
         "cormy/server-middleware": "^0.1.0",
-        "cormy/server-request-handler": "^0.1.0"
+        "cormy/server-request-handler": "^0.1.0",
+        "cormy/server-middleware-dispatcher": "^0.1.0"
     },
     "require-dev": {
         "sugared-rim/phpunit": "^2.0",

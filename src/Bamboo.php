@@ -47,20 +47,9 @@ class Bamboo implements MiddlewareInterface
      */
     public function dispatch(ServerRequestInterface $request, callable $finalHandler):ResponseInterface
     {
-        $current = $this->__invoke($request);
+        $dispatcher = new MiddlewareDispatcher($this, $finalHandler);
 
-        while ($current->valid()) {
-            $nextRequest = $current->current();
-
-            try {
-                $nextResponse = $finalHandler($nextRequest);
-                $current->send($nextResponse);
-            } catch (Throwable $exception) {
-                $current->throw($exception);
-            }
-        }
-
-        return $current->getReturn();
+        return $dispatcher($request);
     }
 
     /**
@@ -82,7 +71,9 @@ class Bamboo implements MiddlewareInterface
     protected function processMiddleware(int $index, ServerRequestInterface $request):Generator
     {
         if (!array_key_exists($index, $this->nodes)) {
-            return yield $request;
+            $response = (yield $request);
+
+            return $response;
         }
 
         $current = $this->nodes[$index]($request);
