@@ -59,7 +59,7 @@ $response = $middlewarePipe->dispatch(new \Zend\Diactoros\ServerRequest(), $fina
 /**
  * Bamboo style PSR-7 middleware pipe.
  *
- * @param callable[]|MiddlewareInterface[] $nodes the middlewares, which requests pass through
+ * @param (callable|MiddlewareInterface)[] $nodes the middlewares, which requests pass through
  */
 public function __construct(array $nodes)
 ```

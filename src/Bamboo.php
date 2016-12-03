@@ -13,14 +13,14 @@ use Psr\Http\Message\ServerRequestInterface;
 class Bamboo implements MiddlewareInterface
 {
     /**
-     * @var callable[]|MiddlewareInterface[]
+     * @var (callable|MiddlewareInterface)[]
      */
     protected $nodes = [];
 
     /**
      * Bamboo style PSR-7 middleware pipe.
      *
-     * @param callable[]|MiddlewareInterface[] $nodes the middlewares, which requests pass through
+     * @param (callable|MiddlewareInterface)[] $nodes the middlewares, which requests pass through
      */
     public function __construct(array $nodes)
     {
